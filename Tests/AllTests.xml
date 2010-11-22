@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit>
+	<testsuites>
+		<testsuite name="ResponseHound_AllTests">
+			<file>tests/RequestTest.php</file>
+			<file>tests/ResponseTest.php</file>
+			<file>tests/JSONTestCaseTest.php</file>
+		</testsuite>
+	</testsuites>
+
+    <php>
+        <includePath>../</includePath>
+    </php>
+</phpunit>
