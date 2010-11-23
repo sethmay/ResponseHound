@@ -77,11 +77,10 @@ class ResponseHound_Transport_Curl implements ResponseHound_Transport_Interface
         {
             $type = self::SUBMIT_GET;
         }
-
         try
         {
             // Open the curl request
-    	    $ch = curl_init();
+            $ch = curl_init();
             curl_setopt($ch, CURLOPT_VERBOSE, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
@@ -137,5 +136,42 @@ class ResponseHound_Transport_Curl implements ResponseHound_Transport_Interface
         }
 
         return $data;
+    }
+
+
+    /**
+     * Encode an array as a GET query.
+     *
+     * @param array $args
+     */
+    protected function encodeArray(array $args = array())
+    {
+        if(!is_array($args))
+        {
+            return false;
+        }
+
+        $c = 0;
+        $query = '';
+
+        foreach($args as $name => $value)
+        {
+            if($c++ != 0)
+            {
+                $query .= '&';
+            }
+
+            $query .= urlencode("$name").'=';
+
+            if(is_array($value))
+            {
+                $query .= urlencode(serialize($value));
+            }
+            else
+            {
+                $query .= urlencode("$value");
+            }
+        }
+        return $query;
     }
 }
